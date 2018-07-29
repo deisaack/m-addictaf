@@ -1,0 +1,25 @@
+{
+  "name": "sportsmeme",
+  "version": "1.3.0",
+  "description": "m addictaf for sportsmeme",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kipkemei/m-addictaf.git"
+  },
+  "keywords": [
+    "mobile",
+    "addictaf",
+    "sportsmeme",
+    "version3"
+  ],
+  "author": "De Isaac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kipkemei/m-addictaf/issues"
+  },
+  "homepage": "https://github.com/kipkemei/m-addictaf#readme"
+}
