@@ -1855,3 +1855,12 @@ img {
     left: -webkit-calc(50% - 24px);
     left: calc(50% - 24px);
 }
+
+#load-more {
+    position: center;
+    background-color: #d80c0c;
+    width: 100%;
+    height: 40px;
+    font-size: 20px;
+    color: white;
+}

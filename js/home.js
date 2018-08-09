@@ -1,11 +1,10 @@
 $(function() {
     var $queryParams = window.location.search.replace('?', '');
     var liveUrl = window.location.origin;
-    var $postsList = $('#postsList');
+    var $postsList = $('#post-view');
     var $currentPosts = undefined;
     var $categoryList = $('#categoryList');
     var $popularVideos = $('#popularVideos');
-    var $loadMore = $('#load-more');
     var $popularVideoTemplate = '' +
         '<div class="col-sm-3">\n' +
         '  <div class="row inner m0">\n' +
@@ -37,9 +36,7 @@ $(function() {
     function addPost(post){
         $postsList.append(Mustache.render($postTemplate, post));
     }
-    function addPopularVideo(post){
-        $popularVideos.append(Mustache.render($popularVideoTemplate, post));
-    }
+
     $.ajax({
         type: 'GET',
         url: 'https://api.addictaf.com/posts/post/?category=SPORTSMEME&limit=50&'+$queryParams,
@@ -94,22 +91,7 @@ $(function() {
         loadMore()
     });
 
-    function addCattegory(category) {
-        $categoryList.append(
-            '<li><a href="?tags='+category+'"><span class="filter_text">'+category+'</span><span class="badge"></span></a></li>'
-        )
-    }
-    $.ajax({
-        type: 'GET',
-        url: 'https://api.addictaf.com/posts/all-tags/',
-        success: function (data) {
-            $.each(data, function (i, tag) {
-                addCattegory(tag);
-            });
-        }, error(){
-            console.log("Failed to load Tags")
-        }
-    });
+
     $.ajax({
         type: 'GET',
         url: 'https://api.addictaf.com/posts/post/?category=SPORTSMEME&is_video=1&limit=50&'+$queryParams,
@@ -123,9 +105,4 @@ $(function() {
         }
     });
 
-    // $(window).scroll(function() {
-        // if ($(window).scrollTop() >= $(document).height() - $(window).height() - 10) {
-        //         loadMore()
-        // }
-    // });
 });

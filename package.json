@@ -4,7 +4,8 @@
   "description": "m addictaf for sportsmeme",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "push": "scp -rv ./ addictaf@168.62.168.90:/home/addictaf/web/sportsmeme/m"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,5 @@
   "bugs": {
     "url": "https://github.com/kipkemei/m-addictaf/issues"
   },
-  "homepage": "https://github.com/kipkemei/m-addictaf#readme"
+  "homepage": "https://github.com/kipkemei/m-addictaf/README.md"
 }

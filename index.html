@@ -84,7 +84,7 @@
             </div>
         </li>
         <li>
-            <a href="/">
+            <a href="/home/">
                 <i class="fa fa-home"></i>Home</a>
         </li>
         <li>
@@ -96,25 +96,8 @@
                 <i class="fa fa-photo"></i>Images</a>
         </li>
         <li>
-            <div class="collapsible-header">
-                <i class="fa fa-list"></i>Categories
-                <span>
-                        <i class="fa fa-caret-right right"></i>
-                    </span>
-            </div>
-            <div class="collapsible-body">
-                <ul>
-                    <li>
-                        <a href="/?section=popular">Popular</a>
-                    </li>
-                    <li>
-                        <a href="/?section=popular">Trending</a>
-                    </li>
-                    <li>
-                        <a href="?section=world_cup">World Cup</a>
-                    </li>
-                </ul>
-            </div>
+            <a href="/?world_cup=1">
+                <i class="fa fa-photo"></i>World Cup</a>
         </li>
         <li>
             <div class="collapsible-header">
@@ -220,6 +203,7 @@
         </div>
         <div class="row" id="postsList">
         </div>
+        <input type="button" id="load-more" value="Load more">
     </div>
 </div>
 <!-- end trending video -->
@@ -253,7 +237,7 @@
     </div>
 </footer>
 <!-- end footer -->
-
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/owl.carousel.min.js"></script>
@@ -261,7 +245,9 @@
 
 <script src="vendors/js/mustache.min.js"></script>
 <script src="vendors/js/jquery.timeago.js"></script>
+
 <script src="js/posts.js"></script>
+<script src="js/scroll.js"></script>
 
 </body>
 </html>
