@@ -60,4 +60,53 @@ $(function() {
             break
         }
     }
+
+
+    var liveUrl = window.location.origin;
+    var $postsList = $('#postsList');
+    var $currentPosts = undefined;
+    var $postTemplate = '<div class="col s6">\n' +
+        '                    <div class="content">\n' +
+        '                        <a class="image" href="{{address}}">\n' +
+        '                            <img src="{{image}}" alt="{{caption}}">\n' +
+        '                            <div class="{{videoIcon}}"></div>\n' +
+        '                        </a>\n' +
+        '                        <a href="{{address}}">\n' +
+        '                            <h5>{{caption}}</h5>\n' +
+        '                        </a>\n' +
+        // '                        <p>\n' +
+        // '                            <a href="{{address}}">John Doe</a>\n' +
+        // '                        </p>\n' +
+        '                        <p class="date">\n' +
+        '                            <span>{{views}} Views</span>\n' +
+        '                        </p>\n' +
+        '                    </div>\n' +
+        '                </div>';
+
+    function addPost(post){
+        $postsList.append(Mustache.render($postTemplate, post));
+    }
+    $.ajax({
+        type: 'GET',
+        url: 'https://api.addictaf.com/posts/post/?category=SPORTSMEME&limit=6&',
+        success: function (data) {
+            $currentPosts = data;
+            $.each(data.results, function (i, post) {
+                post.address = liveUrl + '/post/?id='+post.id;
+                if (post.caption.length > 50) {
+                    post.caption = post.caption.substring(0, 50) + '...';
+                }
+                post.videoIcon = '';
+                if (post.is_video){
+                    post.videoIcon = 'video-icon'
+                }
+                post.views += Math.floor((Math.random() * 10) + 1);
+                addPost(post);
+            });
+        }, error: function (data) {
+            alert('Error fetching posts');
+        }
+    });
 });
+
+// 98439849843
