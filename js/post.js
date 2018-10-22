@@ -37,34 +37,9 @@ $(function() {
         '        </div>'+
         ' </div>';
 
-    for(var i=0; i< x.length; i++){
-        let item = x[i];
-        if (item.includes('id=')){
-            item = item.split('=')[1];
-            console.log('The id is '+ item);
-            $.ajax({
-                type: 'GET',
-                url: 'https://api.addictaf.com/posts/post/'+item+'/',
-                success: function (data) {
-                    $post = data;
-                    // $postContent.html('Lorem lipsum dolor sit amet');
-                    if (data.is_video) {
-                        $postContent.html(Mustache.render($videoPostTemplate, $post));
-                    } else {
-                        $postContent.html(Mustache.render($imagePostTemplate, $post))
-                    }
-                }, error(){
-                    console.log("Failed to load post")
-                }
-            });
-            break
-        }
-    }
-
-
+    var $currentPosts = undefined;
     var liveUrl = window.location.origin;
     var $postsList = $('#postsList');
-    var $currentPosts = undefined;
     var $postTemplate = '<div class="col s6">\n' +
         '                    <div class="content">\n' +
         '                        <a class="image" href="{{address}}">\n' +
@@ -86,27 +61,65 @@ $(function() {
     function addPost(post){
         $postsList.append(Mustache.render($postTemplate, post));
     }
-    $.ajax({
-        type: 'GET',
-        url: 'https://api.addictaf.com/posts/post/?category=SPORTSMEME&limit=6&',
-        success: function (data) {
-            $currentPosts = data;
-            $.each(data.results, function (i, post) {
-                post.address = liveUrl + '/post/?id='+post.id;
-                if (post.caption.length > 50) {
-                    post.caption = post.caption.substring(0, 50) + '...';
+
+    for(var i=0; i< x.length; i++){
+        let item = x[i];
+        if (item.includes('id=')){
+            item = item.split('=')[1];
+            console.log('The id is '+ item);
+            $.ajax({
+                type: 'GET',
+                url: 'https://api.addictaf.com/posts/post/'+item+'/',
+                success: function (data) {
+                    $post = data;
+                    // $postContent.html('Lorem lipsum dolor sit amet');
+                    if (data.is_video) {
+                        $postContent.html(Mustache.render($videoPostTemplate, $post));
+                    } else {
+                        $postContent.html(Mustache.render($imagePostTemplate, $post))
+                    }
+                    // $currentPosts = data.related;
+                    $.each(data.related, function (i, post) {
+                        post.address = liveUrl + '/post/?id='+post.id;
+                        if (post.caption.length > 50) {
+                            post.caption = post.caption.substring(0, 50) + '...';
+                        }
+                        post.videoIcon = '';
+                        if (post.is_video){
+                            post.videoIcon = 'video-icon'
+                        }
+                        post.views += Math.floor((Math.random() * 10) + 1);
+                        addPost(post);
+                    });
+                }, error(){
                 }
-                post.videoIcon = '';
-                if (post.is_video){
-                    post.videoIcon = 'video-icon'
-                }
-                post.views += Math.floor((Math.random() * 10) + 1);
-                addPost(post);
             });
-        }, error: function (data) {
-            alert('Error fetching posts');
+            break
         }
-    });
+    }
+
+
+    // $.ajax({
+    //     type: 'GET',
+    //     url: 'https://api.addictaf.com/posts/post/?category=SPORTSMEME&limit=6&',
+    //     success: function (data) {
+    //         $currentPosts = data;
+    //         $.each(data.results, function (i, post) {
+    //             post.address = liveUrl + '/post/?id='+post.id;
+    //             if (post.caption.length > 50) {
+    //                 post.caption = post.caption.substring(0, 50) + '...';
+    //             }
+    //             post.videoIcon = '';
+    //             if (post.is_video){
+    //                 post.videoIcon = 'video-icon'
+    //             }
+    //             post.views += Math.floor((Math.random() * 10) + 1);
+    //             addPost(post);
+    //         });
+    //     }, error: function (data) {
+    //         alert('Error fetching posts');
+    //     }
+    // });
 });
 
 // 98439849843
